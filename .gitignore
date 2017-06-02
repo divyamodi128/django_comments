@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.vscode/
+Include/
+Scripts/
+pip-selfcheck.json
+tcl/
+
+
 # C extensions
 *.so
 

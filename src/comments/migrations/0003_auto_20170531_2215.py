@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('django_comments', '0002_auto_20170531_2213'),
+        ('comments', '0002_auto_20170531_2213'),
     ]
 
     operations = [

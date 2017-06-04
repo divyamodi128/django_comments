@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.views.generic import TemplateView
-# import user
+from rest_framework import routers
+from .views import UserViewSet
+from allusers.views import AllUsersViewSet
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'allusers', AllUsersViewSet)
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name="home.html")),
-    url(r'^1234/$', TemplateView.as_view(template_name=  "home.html")),
     url(r'^admin/', admin.site.urls),
-    url(r'^user/', include('user.urls')),
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^all/', include('allusers.urls', namespace='allusers')),
+    # url(r'^api-auth/', include('allusers.urls', namespace='detail')),
 ]

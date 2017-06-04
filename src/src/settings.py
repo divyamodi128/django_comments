@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CUSTOMIZE_MODEL = 'allusers.AllUser'
 
 # Application definition
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'allusers',
+    'comment',
 ]
 
 REST_FRAMEWORK = {

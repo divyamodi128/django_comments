@@ -27,7 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CUSTOMIZE_MODEL = 'allusers.AllUser'
+# Users model that creates comments
+COMMENTS_USER_MODEL = 'allusers.AllUser'
+
+# Comments realted model
+COMMENTS_BASED_MODEL = 'posts.Post'
 
 # Application definition
 
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'allusers',
     'comment',
+    'posts',
 ]
 
 REST_FRAMEWORK = {

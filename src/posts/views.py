@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework import viewsets, generics, mixins, permissions
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
+from collections import OrderedDict
 
 from .models import Post
 from .serializers import PostSerializers
-from comment.models import Comment
 
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
@@ -23,14 +23,13 @@ class PostViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
     
-    @detail_route()
+    @detail_route(methods=['get'])
     def get_comments(self, request, pk=None):
         queryset = Post.objects.get(id=pk)
         post_serializer = PostSerializers(queryset, context={'request': request})
-        comment_queryset = Comment.objects.filter(post=queryset)
-        comment_serializer = self.serializer_class(comment_queryset, many=True, context={'request': request})
-        context = {
+        comments = request.get('http://127.0.0.1:8000/comments/')
+        context = OrderedDict({
+            'comments': comments,
             'post': post_serializer.data,
-            'comments': comment_serializer.data
-        }
+        })
         return Response(context)

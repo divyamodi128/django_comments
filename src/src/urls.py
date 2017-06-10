@@ -19,16 +19,20 @@ from rest_framework import routers
 from .views import UserViewSet
 from allusers.views import AllUsersViewSet
 from posts.views import PostViewSet
+# from django.views.generic import TemplateView
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'allusers', AllUsersViewSet)
 router.register(r'post', PostViewSet)
+# router.register(r'comments', include('comment.urls'))
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^', TemplateView.as_view(template_name="post_list.html")),
+    url(r'^', include('comment.urls'))
     # url(r'^all/', include('allusers.urls', namespace='allusers')),
     # url(r'^api-auth/', include('allusers.urls', namespace='detail')),
 ]

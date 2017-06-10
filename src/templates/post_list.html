@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>
+        <!--{{ title }}-->
+        Post is working!</h1>
+    {% for obj in post_object %}
+        /posts/id/
+        {{ obj.title }}<br/>
+        {{ obj.content }}<br/>
+        {{ obj.timestamp }}<br/>
+        {{ obj.updated }}<br/>
+        {{ obj.id }}<br/>
+
+    {% endfor %}
+
+
+{% endblock content %}

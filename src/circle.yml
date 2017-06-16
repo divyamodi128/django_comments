@@ -6,7 +6,6 @@ dependencies:
     - pip install -r requirements.txt
 test:
   pre:
-    - cd src/
     - python manage.py test
 deployment:
   production:

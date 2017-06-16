@@ -6,7 +6,8 @@ dependencies:
     - pip install -r requirements.txt
 test:
   pre:
-    - python manage.py collectstatic --no-input
+    - python src/manage.py collectstatic --no-input
+script: "cd src;python manage.py test"
 deployment:
   production:
     branch: master

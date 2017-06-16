@@ -1,0 +1,14 @@
+machine:
+  python:
+    version: pypy-3.4.4
+dependencies:
+  pre:
+    - pip install -r requirements.txt
+test:
+  pre:
+    - python manage.py collectstatic --no-input
+deployment:
+  production:
+    branch: master
+    commands:
+      - fab deploy

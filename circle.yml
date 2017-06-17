@@ -9,6 +9,6 @@ test:
     - python manage.py test
 deployment:
   production:
-    branch: master
+    branch: deploy
     commands:
       - fab deploy

@@ -1,9 +1,10 @@
 from django.db import models
 from django.conf import settings
+from allusers.models import AllUser
 
 # Create your models here.
 def get_sentinel_user():
-    return get_user_model().objects.get_or_create(username='Unknown')[0]
+    return AllUser.objects.get_or_create(username='Unknown')
 
 class Comment(models.Model):
     post = models.ForeignKey(

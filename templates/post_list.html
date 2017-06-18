@@ -1,18 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h1>
-        <!--{{ title }}-->
-        Post is working!</h1>
-    {% for obj in post_object %}
-        /posts/id/
-        {{ obj.title }}<br/>
-        {{ obj.content }}<br/>
-        {{ obj.timestamp }}<br/>
-        {{ obj.updated }}<br/>
-        {{ obj.id }}<br/>
-
+ <div class="row">
+    <div class="col-sm-8 blog-main">
+    {% for post in posts %}
+        <div class="blog-post">
+            <h2 class="blog-post-title">{{ post.title }}</h2>
+            <p class="blog-post-meta">Added on {{ post.timestamp }} by <a href="#">{{ post.user.username }}</a></p>
+            <p class="blog-post-meta">Updated on {{ post.timestamp }} by <a href="#">{{ post.user.username }}</a></p>
+        <p><a href={{ post.url }}>{{ post.title }}</a></p>
+        <p>{{ post.content }}</p>
+        <p>{{ post.timestamp }}</p>
+        <p>{{ post.updated }}</p>
+        <p>{{ post.pk }}</p>
+        </div> <!--End of bolg-post-->
     {% endfor %}
+    <hr/>
+    {% load rest_framework %}
+    <div class="blog-post">
+        <h2 class="blog-post-title">New Post</h2>
+        <form action="{% url '/posts/' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% render_form serializer %}
+            <input type="submit" value="Save">
+        </form>
+    </div>
+    </div> <!--End of col-sm-8 blog-main-->
+</div> <!--row div tag end-->
+    <!--{% for post in posts %}
+        {{ post.title }}<br/>
+        {{ post.content }}<br/>
+        {{ post.timestamp }}<br/>
+        {{ post.updated }}<br/>
+        {{ post.pk }}<br/>
 
+    {% endfor %}-->
 
 {% endblock content %}

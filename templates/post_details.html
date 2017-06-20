@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+ <div class="row">
+    <div class="col-sm-8 blog-main">
+
+        <div class="blog-post">
+            <h2 class="blog-post-title">{{ post.title }}</h2>
+            <p class="blog-post-meta">Added on {{ post.timestamp }} by <a href="#">{{ post.user.username }}</a></p>
+            <p class="blog-post-meta">Updated on {{ post.timestamp }} by <a href="#">{{ post.user.username }}</a></p>
+        <p><a href={{ post.url }}>{{ post.title }}</a></p>
+        <p>{{ post.content }}</p>
+        <p>{{ post.timestamp }}</p>
+        <p>{{ post.updated }}</p>
+        <p>{{ post.pk }}</p>
+        </div> <!--End of bolg-post-->
+    
+    <hr/>
+    {% for comment in comments %}
+    <div>
+        <h2 class="blog-post-title">Comment</h2>
+        {{ comment }} 
+    </div>
+    {% endfor %}
+    </div> <!--End of col-sm-8 blog-main-->
+</div> <!--row div tag end-->
+    <!--{% for post in posts %}
+        {{ post.title }}<br/>
+        {{ post.content }}<br/>
+        {{ post.timestamp }}<br/>
+        {{ post.updated }}<br/>
+        {{ post.pk }}<br/>
+
+    {% endfor %}-->
+
+{% endblock content %}

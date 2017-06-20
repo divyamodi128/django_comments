@@ -1,0 +1,61 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="formCtrl">
+  <form action='http://127..0.1:8000/user/'>
+    User Id: <input type="text" ng-model="userId" id="userId">
+    <br>
+    Password: <input type="text" ng-model="password" id="password">
+    <br>
+    User Type:
+<select ng-model="usertype">
+    <option value="">
+    <option value="admin">Admin
+    <option value="staff">Staff
+    <option value="user">User
+</select>
+<br>
+<button type="submit" ng-click="get()">Login</button> &nbsp; <button ng-click="cancel()">Cancel</button>
+  </form>
+  <h1>You entered: {{userId}} {{password}} {{usertype}}</h1>
+</div>
+
+</body>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('formCtrl', function($scope) {
+
+	$scope.userId = "";
+	$scope.password = "";
+	$scope.usertype = "";
+	$scope.isAdmin = false;
+	$scope.isStaff = false;
+	$scope.data = {};
+	
+    /*$scope.master = {firstName:"John", lastName:"Doe"};
+    $scope.reset = function() {
+        $scope.user = angular.copy($scope.master);
+    };
+    $scope.reset();*/
+    $scope.get = function(){
+    	console.log($scope.usertype);
+    	if ($scope.usertype == "admin"){
+    		$scope.isAdmin = true;
+    		$scope.isStaff = false;
+    	} else if ($scope.usertype === "staff"){
+    		$scope.isAdmin = false;
+    		$scope.isStaff = true;
+    	}
+
+    	$scope.data.userId = $scope.userId;
+		$scope.data.password = $scope.password;
+		$scope.data.isAdmin = $scope.isAdmin;
+		$scope.data.isStaff = $scope.isStaff;
+
+    	console.log($scope.data);
+};
+});
+</script>
+</html>

@@ -3,8 +3,8 @@ from .models import Comment
 
 # Register your models here.
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['user', 'content', 'timestamp', 'updated']
-    list_display_links = ['user']
+    list_display = ['id', 'custom_model', 'user']
+    list_display_links = ['id']
     list_filter = ['timestamp', 'updated']
     search_fields =['user', 'content']
  

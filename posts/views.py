@@ -3,11 +3,14 @@ from rest_framework import viewsets, generics, mixins, permissions
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 # from rest_framework import renderers
+from urllib.request import urlparse, urlopen
+import json
 
 from collections import OrderedDict
 
 from .models import Post
 from .serializers import PostSerializers
+from comment.serializers import CommentSerializers
 
 # Create your views here.
 class PostViewSet(viewsets.ModelViewSet):
@@ -31,9 +34,11 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_comments(self, request, pk=None):
         queryset = Post.objects.get(id=pk)
         post_serializer = PostSerializers(queryset, context={'request': request})
-        comments = request.get('http://127.0.0.1:8000/comments/')
+        # data = {'post': queryset}
+        import pdb; pdb.set_trace()
+        comments = urlopen('http://127.0.0.1:8000/comments/get_comments/'+pk).read().decode()
         context = OrderedDict({
-            'comments': comments,
+            'comments': json.loads(comments),
             'post': post_serializer.data,
         })
         return Response(context)

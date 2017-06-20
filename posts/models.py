@@ -1,11 +1,11 @@
 from django.db import models
 from django.conf import settings
-from allusers.models import AllUser
+# from allusers.models import AllUser
 
 # Create your models here.
 # def get_default_user():
 #     return AllUser.objects.get(id=3)
-DEFAULT_USER_ID = 3
+DEFAULT_USER_ID = 1
 
 class Post(models.Model):
     """
@@ -14,7 +14,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250, default='Post Coming Soon...')
     content = models.TextField()
     user = models.ForeignKey(
-        settings.COMMENTS_USER_MODEL,
+        settings.AUTH_USER_MODEL,
         on_delete=None,
         default=DEFAULT_USER_ID,
     )

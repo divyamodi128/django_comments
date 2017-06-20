@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Users model that creates comments
-COMMENTS_USER_MODEL = 'allusers.AllUser'
+COMMENTS_USER_MODEL = 'settings.AUTH_USER_MODEL'
 
 # Comments realted model
 COMMENTS_BASED_MODEL = 'posts.Post'
@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    # 'rest_framework.authtoken',
     'corsheaders',
     'django_nose',
-    'allusers',
+    # 'allusers',
     'comment',
     'posts',
 ]
@@ -161,7 +162,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=posts.models,allusers.models,comment.models',
+    '--cover-package=posts.models,comment.models',
 ]
 
 STATIC_URL = '/static/'

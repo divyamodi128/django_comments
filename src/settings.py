@@ -141,8 +141,7 @@ USE_TZ = True
 CORS_ORIGIN_WHITELIST = (
     # 'hostname.example.com',
     'google.com',
-    'localhost:8000',
-    '127.0.0.1:9000'
+    'localhost:8000'
 )
 
 CORS_URLS_REGEX = r'^/api/.*$'
@@ -162,7 +161,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=posts.models,comment.models',
+    # '--cover-package=posts.models,comment.models',
 ]
 
 STATIC_URL = '/static/'

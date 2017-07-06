@@ -3,9 +3,8 @@ from .models import Comment
 
 # Register your models here.
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'custom_model', 'user']
-    list_display_links = ['id']
+    list_display = ['custom_model', 'user']
+    # list_display_links = ['id']
     list_filter = ['timestamp', 'updated']
-    search_fields =['user', 'content']
  
 admin.site.register(Comment, CommentAdmin)

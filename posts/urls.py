@@ -7,4 +7,5 @@ router.register(r'posts', PostViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^comments/', include('comment.urls')),
 ]

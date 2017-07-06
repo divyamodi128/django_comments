@@ -34,11 +34,13 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_comments(self, request, pk=None):
         queryset = Post.objects.get(id=pk)
         post_serializer = PostSerializers(queryset, context={'request': request})
-        # data = {'post': queryset}
-        import pdb; pdb.set_trace()
         comments = urlopen('http://127.0.0.1:8000/comments/get_comments/'+pk).read().decode()
         context = OrderedDict({
             'comments': json.loads(comments),
             'post': post_serializer.data,
         })
-        return Response(context)
+        return render(request,
+            'post_details.html',
+            context,
+        )
+        # return Response(context)

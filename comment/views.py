@@ -12,6 +12,7 @@ from collections import OrderedDict
 
 from .serializers import CommentSerializers, CommentListSerializers
 from .models import Comment
+from posts.models import Post
 
 
 class CommentsViewSet(viewsets.ModelViewSet):
@@ -51,15 +52,18 @@ class ModelCommentsList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CustomeCommentView(viewsets.ViewSet):
+class CustomerCommentView(viewsets.ViewSet):
     queryset = Comment.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
-    def get_queryset(self):
-        return Comment.objects.all()
+    def get_queryset(self, post=None):
+        if post:
+            return Comment.objects.filter(custom_model_id=post)
+        else:
+            return Comment.objects.all()
 
-    def list(self, request):
-        comments = self.get_queryset()
+    def list(self, request, post=None):
+        comments = self.get_queryset(post=post)
         serializer = CommentListSerializers(
             comments, 
             context={'request': request},
@@ -83,7 +87,8 @@ class CustomeCommentView(viewsets.ViewSet):
                         # serializer.data.remove(data)
         return Response(content)
 
-    def create(self, request):
+    def create(self, request, post=None):
+        import pdb; pdb.set_trace()
         comment = Comment.objects.get()
         serializer = CommentSerializers(data=request.data)
         if serializer.is_valid():

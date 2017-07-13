@@ -20,7 +20,7 @@ class Comment(models.Model):
     parent_comment = models.ForeignKey(
         "self",
         on_delete=models.CASCADE,
-        blank=False, null=True
+        blank=True, null=True
     )
     content   = models.TextField(blank=False, null=False)
     timestamp = models.DateTimeField(auto_now_add=True)

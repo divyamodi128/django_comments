@@ -31,10 +31,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
     url(r'^', include('posts.urls')),
-    # url(r'^', include('allusers.urls')),
     url(r'^', include('comment.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # url(r'^', TemplateView.as_view(template_name="post_list.html")),
-    # url(r'^all/', include('allusers.urls', namespace='allusers')),
-    # url(r'^api-auth/', include('allusers.urls', namespace='detail')),
 ]

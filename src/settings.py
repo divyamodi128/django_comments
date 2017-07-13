@@ -138,13 +138,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-CORS_ORIGIN_WHITELIST = (
-    # 'hostname.example.com',
-    'google.com',
-    'localhost:8000'
-)
+CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_URLS_REGEX = r'^/api/.*$'
+# CORS_ORIGIN_WHITELIST = (
+#     # 'hostname.example.com',
+#     'google.com',
+#     'localhost:8000',
+#     '127.0.0.1:8000',
+# )
+
+# CORS_URLS_REGEX = r'^/get/.*$'
 
 CORS_ALLOW_METHODS = (
     'DELETE',

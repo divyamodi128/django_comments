@@ -28,8 +28,8 @@ class CommentListSerializers(HyperlinkedModelSerializer):
         fields = ('id', 'url', 'custom_model', 'user', 'parent_comment', 'content', 'updated', 'timestamp')
 
 class CommentSerializers(HyperlinkedModelSerializer):
-    # user = UserSerializer(view_name='user-list')
-    # custom_model = PostSerializers(view_name='user-list')
+    user = UserSerializer()
+    custom_model = PostSerializers()
 
     class Meta:
         model = Comment

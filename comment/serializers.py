@@ -34,3 +34,4 @@ class CommentSerializers(HyperlinkedModelSerializer):
     class Meta:
         model = Comment
         fields = ('id', 'url', 'custom_model', 'user', 'parent_comment', 'content', 'updated', 'timestamp')
+

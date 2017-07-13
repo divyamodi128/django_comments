@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 
 from .views import CommentsViewSet, ModelCommentsList, CustomeCommentView
 
+
 router = routers.DefaultRouter()
 router.register(r'comments', CommentsViewSet)
 router.register(r'get', CustomeCommentView)

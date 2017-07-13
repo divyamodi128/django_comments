@@ -5,6 +5,7 @@ from .models import Comment
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['custom_model', 'user']
     # list_display_links = ['id']
+
     list_filter = ['timestamp', 'updated']
  
 admin.site.register(Comment, CommentAdmin)

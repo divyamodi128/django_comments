@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 def get_sentinel_user():
     return User.objects.get_or_create(username='Unknown')
 
-# def get_parent_comment(pk):
-#     return Comment.objects.get(id=pk)
 
 class Comment(models.Model):
     custom_model = models.ForeignKey(

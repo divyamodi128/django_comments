@@ -104,4 +104,3 @@ class CustomeCommentView(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         pass
-

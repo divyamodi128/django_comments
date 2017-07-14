@@ -4,7 +4,7 @@ app1.controller('Ctrl1', function ($scope, $http) {
     $scope.firstCall = function () {  
   
         $http({  
-            url: "http://127.0.0.1:8000/get/",  
+            url: "http://127.0.0.1:8000/posts/1/get/",  
             dataType: 'json',  
             method: 'GET',  
             data: '',  

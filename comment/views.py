@@ -3,7 +3,7 @@ from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.core.signals import setting_changed
 from django.dispatch import receiver
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -56,7 +56,9 @@ class CustomerCommentView(viewsets.ViewSet):
     queryset = Comment.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
-    def get_queryset(self, post=None):
+    def get_queryset(self, post=None, pk=None):
+        if pk:
+            return Comment.objects.get(id=pk)
         if post:
             return Comment.objects.filter(custom_model_id=post)
         else:
@@ -66,7 +68,7 @@ class CustomerCommentView(viewsets.ViewSet):
         comments = self.get_queryset(post=post)
         serializer = CommentListSerializers(
             comments, 
-            context={'request': request},
+            context={'request': request}, 
             many=True
         )
         # import pdb; pdb.set_trace()
@@ -80,7 +82,6 @@ class CustomerCommentView(viewsets.ViewSet):
                     if cmt.get('url') == data.get('parent_comment'):
                         if cmt.get('reply'):
                             cmt.get('reply').append(data)
-                            print(cmt)
                         else:
                             cmt['reply'] = [data,]
                         # serializer.data.pop(index)
@@ -98,8 +99,17 @@ class CustomerCommentView(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrieve(self, request, pk=None):
-        pass
+    def retrieve(self, request, post=None, pk=None):
+        if not post:
+            return Response("No Custom Model found", status=status.HTTP_400_BAD_REQUEST)
+        comments = self.get_queryset(pk=pk)
+        if int(post) is not comments.custom_model_id:
+            return Response("Comment does not belong to this Custom Model.", status=status.HTTP_404_NOT_FOUND)
+        serializer = CommentListSerializers(
+            comments, 
+            context={'request': request}, 
+        )
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, pk=None):
         pass

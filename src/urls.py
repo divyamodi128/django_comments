@@ -19,7 +19,7 @@ from rest_framework import routers
 from .views import UserViewSet
 # from allusers.views import AllUsersViewSet
 # from posts.views import PostViewSet
-# from django.views.generic import TemplateView
+from django.views.generic import TemplateView
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -27,10 +27,17 @@ router.register(r'users', UserViewSet)
 # router.register(r'post', PostViewSet)
 # router.register(r'comments', include('comment.urls'))
 
-urlpatterns = [
+UI_URLS = [
+    url(r'^posts/ui/', TemplateView.as_view(template_name="post_list.html")),
+]
+
+urlpatterns = UI_URLS + [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
     url(r'^', include('posts.urls')),
     url(r'^', include('comment.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-auth/', include('rest_framework.urls')),
 ]
+
+# urlpatterns.append(
+# )

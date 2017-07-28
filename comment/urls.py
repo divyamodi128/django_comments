@@ -8,7 +8,7 @@ from .views import CommentsViewSet, ModelCommentsList, CustomerCommentView
 
 router = routers.DefaultRouter()
 router.register(r'comments', CommentsViewSet)
-router.register(r'posts/(?P<post>[^/.]+)/get', CustomerCommentView)
+router.register(r'posts/(?P<custom_model>[^/.]+)/get', CustomerCommentView)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

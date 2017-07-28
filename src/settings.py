@@ -33,6 +33,9 @@ COMMENTS_USER_MODEL = 'settings.AUTH_USER_MODEL'
 # Comments realted model
 COMMENTS_BASED_MODEL = 'posts.Post'
 
+# 
+CUSTOM_MODEL_URL = 'posts'
+
 # Application definition
 
 INSTALLED_APPS = [

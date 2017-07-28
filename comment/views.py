@@ -13,6 +13,7 @@ from collections import OrderedDict
 from .serializers import CommentSerializers, CommentListSerializers
 from .models import Comment
 from posts.models import Post
+# from settings import CUSTOM_MODEL_URL, COMMENTS_BASED_MODEL
 
 
 class CommentsViewSet(viewsets.ModelViewSet):
@@ -56,16 +57,16 @@ class CustomerCommentView(viewsets.ViewSet):
     queryset = Comment.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
-    def get_queryset(self, post=None, pk=None):
+    def get_queryset(self, custom_model_id=None, pk=None):
         if pk:
             return Comment.objects.get(id=pk)
-        if post:
-            return Comment.objects.filter(custom_model_id=post)
+        if custom_model_id:
+            return Comment.objects.filter(custom_model_id=custom_model_id)
         else:
             return Comment.objects.all()
 
-    def list(self, request, post=None):
-        comments = self.get_queryset(post=post)
+    def list(self, request, custom_model=None):
+        comments = self.get_queryset(custom_model_id=custom_model)
         serializer = CommentListSerializers(
             comments, 
             context={'request': request}, 
@@ -73,7 +74,7 @@ class CustomerCommentView(viewsets.ViewSet):
         )
         # import pdb; pdb.set_trace()
         content = []
-        for index, data in enumerate(serializer.data):
+        for data in serializer.data:
             if not data.get('parent_comment'):
                 content.append(data)
                 # serializer.data.pop(i)
@@ -84,11 +85,9 @@ class CustomerCommentView(viewsets.ViewSet):
                             cmt.get('reply').append(data)
                         else:
                             cmt['reply'] = [data,]
-                        # serializer.data.pop(index)
-                        # serializer.data.remove(data)
         return Response(content)
 
-    def create(self, request, post=None):
+    def create(self, request, custom_model=None):
         import pdb; pdb.set_trace()
         comment = Comment.objects.get()
         serializer = CommentSerializers(data=request.data)
@@ -99,7 +98,7 @@ class CustomerCommentView(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrieve(self, request, post=None, pk=None):
+    def retrieve(self, request, custom_model=None, pk=None):
         if not post:
             return Response("No Custom Model found", status=status.HTTP_400_BAD_REQUEST)
         comments = self.get_queryset(pk=pk)

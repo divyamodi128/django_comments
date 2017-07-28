@@ -8,31 +8,24 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
             integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
             crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
         <!-- Custom styles for this template -->
-        <link href="../css/blog.css" rel="stylesheet">
+        <!-- <link href="../css/blog.css" rel="stylesheet"> 
 
-        <link rel="icon" href="../../favicon.ico">
+        <link rel="icon" href="../../favicon.ico">-->
     </head>
     <body>
-        <!--<div class="blog-masthead">
-            <div class="container">
-                <nav class="blog-nav">
-                <a class="blog-nav-item active" href="#">Home</a>
-                <a class="blog-nav-item" href="#">New Posts</a>
-                <a class="blog-nav-item" href="#">Press</a>
-                <a class="blog-nav-item" href="#">New hires</a>
-                <a class="blog-nav-item" href="#">About</a>
-                </nav>
-            </div>
-        </div>-->
         <div class='container'>
-            <div class="blog-header">
+            <div class="row">
                 <h1 class="blog-title">Django Posts</h1>
                 <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+                <div ng-app="post" ng-controller="postCtrl" ng-init="postcall()">
+                    <div my-postlist></div>
+                    <my-postlist></my-postlist>
+                    <!-- <h2>Content of base html file</h2> -->
+                </div>
+        <script src="post_list.js"></script>
             </div>
-            {% block content %}
-                <h2>Content of base html file</h2>
-            {% endblock content %}
         </div>
     </body>
 </html>

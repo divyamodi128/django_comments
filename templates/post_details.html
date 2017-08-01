@@ -1,68 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
- <div class="row">
-    <div class="col-sm-8 blog-main">
-
-        <div class="blog-post">
-            <h2 class="blog-post-title">{{ post.title }}</h2>
-            <p class="blog-post-meta">Added on {{ post.timestamp }} by <a href="#">{{ post.user.username }}</a></p>
-            <p class="blog-post-meta">Updated on {{ post.timestamp }} by <a href="#">{{ post.user.username }}</a></p>
-        <p><a href={{ post.url }}>{{ post.title }}</a></p>
-        <p>{{ post.content }}</p>
-        <p>{{ post.timestamp }}</p>
-        <p>{{ post.updated }}</p>
-        <p>{{ post.pk }}</p>
-        </div> <!--End of bolg-post-->
-    
-    <hr/>
-    {% for comment in comments %}
-    <h2 class="blog-post-title">Comment</h2>
-    <div id="{{ comment.id }}">
-        {{ comment.id }}
-        Posted by {{ comment.user.username }}
-        <p>{{ comment.content }}</p>
-        {% if comment.reply %}
-            {% for reply in comment.reply %}
-                <p>Reply: {{ reply.content }}</p>
-                <p>Posted by: {{ reply.user.username }}</p>
-            {% endfor %}
-        {% endif %}
-        <button id="{{ comment.id }}button" class="btn btn-default">edit</button>
+<div class="col-md-10 col-md-offset-1">
+    <h1>Post Details</h1>
+    <!-- {{ PostListObj }} -->
+    <div ng-app="postdetail" ng-controller="postDetailCtrl" ng-init="postdetails()">
+        <!-- <div ng-repeat="postDetail in PostListObj"> -->
+            <h2>{{postdetailobj.title}} <small>{{postdetailobj.timestamp}}</small></h2>
+            <blockquote>
+                <p>{{postdetailobj.content}}</p>
+                <footer>Posted by <strong>
+                    <!-- {{postdetailobj.user}} -->
+                     <div ng-controller="userDetailCtrl" ng-init="userdetail();user='{{postdetailobj.user}}'">
+                        <!-- ng-model="postdetailobj.user" 
+                            <a href="{{userName.url}}"><span ng-bind="userName.username"></span></a>  -->
+                    <div user-link></div>
+                    <user-link /> 
+                    <!-- <div class="user-link"></div> -->
+                </strong>
+            </blockquote>
+        </div>
     </div>
-    <div id="{{ comment.id }}form" style=display:none>
-        <form action='http://127.0.0.1:8000/comments/{{ comment.id }}/' method="put">
-            {% csrf_token %}
-            Posted by {{ comment.user.username }}
-            <input type="textarea" value="{{ comment.content }}" name="content" />
-            <button id="{{ comment.id }}button" type="submit" class="btn btn-default">update</button>
-        </form>
-    </div>
-    <script>
-        document.getElementById('{{ comment.id }}button').onclick = function() {
-        var div = document.getElementById('{{ comment.id }}');
-        var divform = document.getElementById('{{ comment.id }}form');
-        if (div.style.display !== 'none') {
-            div.style.display = 'none';
-            divform.style.display = 'block';
-        }
-        else {
-            div.style.display = 'block';
-            divform.style.display = 'none';
-        }
-    };
-    </script>
+</div>
+<script type="text/javascript" src="post_detail.js"></script>
 
-    {% endfor %}
-    </div> <!--End of col-sm-8 blog-main-->
-</div> <!--row div tag end-->
-    <!--{% for post in posts %}
-        {{ post.title }}<br/>
-        {{ post.content }}<br/>
-        {{ post.timestamp }}<br/>
-        {{ post.updated }}<br/>
-        {{ post.pk }}<br/>
-
-    {% endfor %}-->
 
 {% endblock content %}

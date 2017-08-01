@@ -1,40 +1,5 @@
-
-var post = angular.module('post', []).config(function($httpProvider) {
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-});
-
-// var post = angular.module('post', []);
-post.controller('postCtrl', function ($scope, $http) {
-
-    $scope.postcall = function () {
-
-        $http({
-            url: "http://127.0.0.1:8000/posts/",
-            dataType: 'json',
-            method: 'GET',
-            data: '',
-            // Origin: 'Access-Control-Allow-Origin',
-            headers: {
-                "Content-Type": "application/json",
-                // "Access-Control-Allow-Origin": "*",
-            }
-        }).success(function (response) {
-            // debugger;
-            console.log(response)
-            $scope.PostListObj = response;
-        }).error(function (error) {
-            alert(error);
-        });
-    }
-})
-.directive('myPostlist', function() {
-    return {
-        templateUrl: 'post_list.html'
-    };
-});
-
-
-post.controller('postDetailCtrl', function ($scope, $http) {
+var postdetail = angular.module('postdetail', []);
+postdetail.controller('postDetailCtrl', function ($scope, $http) {
 
     $scope.postdetails = function () {
 
@@ -58,11 +23,10 @@ post.controller('postDetailCtrl', function ($scope, $http) {
     }
 });
 
-
-post.controller('userCtrl', function ($scope, $http) {
-    $scope.usercall = function () {
+postdetail.controller('userDetailCtrl', function ($scope, $http) {
+    $scope.userdetail = function () {
         $http({
-            url: $scope.posts.user,
+            url: $scope.user,
             dataType: 'json',
             method: 'GET',
             data: '',
@@ -85,4 +49,3 @@ post.controller('userCtrl', function ($scope, $http) {
         template: '<a href="{{userName.url}}"><span ng-bind="userName.username"></span></a>'
     };
 });
-
